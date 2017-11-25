@@ -14,49 +14,51 @@ import java.util.Locale;
 
 public class Register extends AppCompatActivity {
 
-    private Calendar myCalendar = Calendar.getInstance();
+
     private EditText bday;
-    private DatePickerDialog.OnDateSetListener date;
+    Calendar myCalendar = Calendar.getInstance();
 
-    private void updateLabel() {
-        String myFormat = "dd/MM/yyyy"; //In which you need put here
-        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
 
-        bday.setText(sdf.format(myCalendar.getTime()));
-    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+
         bday = (EditText) findViewById(R.id.bdayTxt);
 
 
 
-
-        date = new DatePickerDialog.OnDateSetListener() {
-
-            @Override
-            public void onDateSet(DatePicker view, int dayOfMonth, int monthOfYear, int year) {
-                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                myCalendar.set(Calendar.MONTH, monthOfYear);
-                myCalendar.set(Calendar.YEAR, year);
-                updateLabel();
-            }
-        };
-
         bday.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                new DatePickerDialog(Register.this, date, myCalendar
-                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            public void onClick(View view) {
+                Calendar mcurrentDate=Calendar.getInstance();
+                int mYear=mcurrentDate.get(Calendar.YEAR);
+                int mMonth=mcurrentDate.get(Calendar.MONTH);
+                int mDay=mcurrentDate.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog mDatePicker=new DatePickerDialog(Register.this, new DatePickerDialog.OnDateSetListener() {
+                    public void onDateSet(DatePicker datepicker, int selectedyear, int selectedmonth, int selectedday) {
+                        // TODO Auto-generated method stub
+                        myCalendar.set(Calendar.YEAR, selectedyear);
+                        myCalendar.set(Calendar.MONTH, selectedmonth);
+                        myCalendar.set(Calendar.DAY_OF_MONTH, selectedday);
+                        updateLabel();
+                    }
+                },mYear, mMonth, mDay);
+                mDatePicker.setTitle("Select date");
+                mDatePicker.show();
             }
         });
+    }
 
+    private void updateLabel() {
+        String myFormat = "dd/MM/yyyy"; //In which you need put here
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.UK);
 
-
+        bday.setText(sdf.format(myCalendar.getTime()));
     }
 
 
