@@ -27,7 +27,7 @@ public class Register extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
 
-        bday = (EditText) findViewById(R.id.bdayTxt);
+        bday = (EditText) findViewById(R.id.bday);
 
 
 
