@@ -27,7 +27,6 @@
                 android:id="@+id/fNameWrapper"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColorHint="@color/colorPrimary"
                 android:layout_weight="2">
 
                 <EditText
@@ -43,7 +42,6 @@
                 android:id="@+id/lNameWrapper"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColorHint="@color/colorPrimary"
                 android:weightSum="3">
 
                 <EditText
@@ -65,8 +63,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:textColorHint="@color/colorPrimary">
+            android:layout_marginRight="20dp">
 
             <EditText
                 android:id="@+id/bday"
@@ -101,7 +98,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textColor="@color/colorPrimary"
                 android:text="Male" />
 
             <RadioButton
@@ -109,7 +105,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textColor="@color/colorPrimary"
                 android:text="Female" />
         </RadioGroup>
 
@@ -118,8 +113,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:textColorHint="@color/colorPrimary">
+            android:layout_marginRight="20dp">
 
             <EditText
                 android:id="@+id/usernameReg"
@@ -136,7 +130,6 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:textColorHint="@color/colorPrimary"
             app:passwordToggleEnabled="true">
 
             <EditText
@@ -153,8 +146,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:textColorHint="@color/colorPrimary">
+            android:layout_marginRight="20dp">
 
             <EditText
                 android:id="@+id/phoneNumber"
