@@ -50,6 +50,7 @@ public class Register extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        mContext = this;
         mApiService = itk.myoganugraha.soalgits.apihelper.UtlisApi.getAPIService();
         initComponents();
     }
