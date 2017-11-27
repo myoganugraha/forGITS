@@ -91,7 +91,8 @@
             android:orientation="horizontal"
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp">
+            android:layout_marginRight="20dp"
+            android:id="@+id/radioGroupGender">
 
             <RadioButton
                 android:id="@+id/lakiLakiRB"
