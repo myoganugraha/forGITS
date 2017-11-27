@@ -38,7 +38,7 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity__login);
 
         mContext = this;
-        mApiService = itk.myoganugraha.soalgits.apihelper.UtlisApi.getAPIService();
+        mApiService = UtlisApi.getAPIService();
         initComponents();
 
 
@@ -77,11 +77,10 @@ public class Login extends AppCompatActivity {
                             loading.dismiss();
                             try{
                                 JSONObject jsonRESULTS = new JSONObject(response.body().string());
-                                if(jsonRESULTS.getString("error").equalsIgnoreCase("false")){
+                                if(jsonRESULTS.getString("error").equals("false")){
                                     Toast.makeText(mContext, "Login Success", Toast.LENGTH_SHORT).show();
-                                    String username = jsonRESULTS.getJSONObject("user").getString("nama");
+                                    String username = jsonRESULTS.getJSONObject("user").getString("username");
                                     Intent i = new Intent(mContext, MainActivity.class);
-                                    getIntent().putExtra("result_username", username);
                                     startActivity(i);
                                 }
                                 else {

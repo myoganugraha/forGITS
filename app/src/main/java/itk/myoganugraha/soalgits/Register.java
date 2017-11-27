@@ -31,11 +31,11 @@ import retrofit2.Response;
 
 public class Register extends AppCompatActivity {
 
-    private Button signUp;
-    private EditText firstname, lastname, username, password, bday, phone;
+    Button signUp;
+    EditText firstname, lastname, username, password, bday, phone;
     Calendar myCalendar = Calendar.getInstance();
-    private RadioGroup genderRadioGroup;
-    private ProgressDialog loading;
+    RadioGroup genderRadioGroup;
+    ProgressDialog loading;
     String gender;
 
     Context mContext;
@@ -67,13 +67,11 @@ public class Register extends AppCompatActivity {
 
         final int selectId = genderRadioGroup.getCheckedRadioButtonId();
         if(selectId == R.id.lakiLakiRB){
-            gender = "Male";
-        }
-        else{
             gender = "Female";
         }
-
-
+        else{
+            gender = "Male";
+        }
 
 
 
@@ -110,7 +108,8 @@ public class Register extends AppCompatActivity {
     }
 
     private void requestRegister(){
-        mApiService.registerRequest(firstname.getText().toString(),
+        mApiService.registerRequest(
+                firstname.getText().toString(),
                 lastname.getText().toString(),
                 username.getText().toString(),
                 password.getText().toString(),
@@ -125,7 +124,7 @@ public class Register extends AppCompatActivity {
                             loading.dismiss();
                             try {
                                 JSONObject jsonRESULTS = new JSONObject(response.body().string());
-                                if(jsonRESULTS.getString("error").equalsIgnoreCase("false")){
+                                if(jsonRESULTS.getString("error").equals("false")){
                                     Toast.makeText(mContext, "REGISTRATION SUCCESS", Toast.LENGTH_SHORT).show();
                                 }
                             } catch (JSONException e) {
