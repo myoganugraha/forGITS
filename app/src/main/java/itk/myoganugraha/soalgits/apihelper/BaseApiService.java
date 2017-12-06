@@ -13,12 +13,12 @@ import retrofit2.http.POST;
 
 public interface BaseApiService {
     @FormUrlEncoded
-    @POST("alamku/index.php/api/post/user/login")
+    @POST("login.php")
     Call<ResponseBody> loginRequest(@Field("username") String username,
                                     @Field("password") String password);
 
     @FormUrlEncoded
-    @POST("alamku/index.php/api/post/user/account")
+    @POST("register.php")
     Call<ResponseBody> registerRequest(@Field("first_name") String first_name,
                                        @Field("last_name") String last_name,
                                        @Field("username") String username,
