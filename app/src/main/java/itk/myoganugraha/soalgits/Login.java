@@ -15,6 +15,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.security.DigestException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import itk.myoganugraha.soalgits.apihelper.BaseApiService;
 import itk.myoganugraha.soalgits.apihelper.*;
@@ -33,6 +36,11 @@ public class Login extends AppCompatActivity {
     ProgressDialog loading;
     Context mContext;
     BaseApiService mApiService;
+    String StringAwal, StringHasil;
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +50,8 @@ public class Login extends AppCompatActivity {
         mContext = this;
         mApiService = UtlisApi.getAPIService();
         initComponents();
+
+
 
 
     }
@@ -71,8 +81,12 @@ public class Login extends AppCompatActivity {
         });
     }
 
+
     public void requestLogin(){
-        mApiService.loginRequest(usernameLog.getText().toString(), passwordLog.getText().toString())
+        StringAwal = passwordLog.getText().toString();
+        StringHasil = md5(StringAwal);
+
+        mApiService.loginRequest(usernameLog.getText().toString(), StringHasil)
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -80,12 +94,12 @@ public class Login extends AppCompatActivity {
                             loading.dismiss();
                             try{
                                 JSONObject jsonRESULTS = new JSONObject(response.body().string());
-                                if(jsonRESULTS.getString("error").equals("false")){
+                                if(jsonRESULTS.getString("status").equals("true")){
                                     Toast.makeText(mContext, "Login Success", Toast.LENGTH_SHORT).show();
-                                    String username = jsonRESULTS.getJSONObject("user").getString("username");
+                                    //String username = jsonRESULTS.getJSONObject("user").getString("username");
                                     Intent i = new Intent(mContext, MainActivity.class);
+                                    //getIntent().putExtra("result_nama", username);
                                     startActivity(i);
-                                    finish();
                                 }
                                 else {
                                     String error_message = jsonRESULTS.getString("error_message");
@@ -108,6 +122,25 @@ public class Login extends AppCompatActivity {
                         loading.dismiss();
                     }
                 });
+    }
+
+    public String md5(String s) {
+        try {
+            // Create MD5 Hash
+            MessageDigest digest = java.security.MessageDigest.getInstance("MD5");
+            digest.update(s.getBytes());
+            byte messageDigest[] = digest.digest();
+
+            // Create Hex String
+            StringBuffer hexString = new StringBuffer();
+            for (int i = 0; i < messageDigest.length; i++)
+                hexString.append(Integer.toHexString(0xFF & messageDigest[i]));
+            return hexString.toString();
+
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
     @Override
