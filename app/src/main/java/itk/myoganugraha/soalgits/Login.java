@@ -3,6 +3,7 @@ package itk.myoganugraha.soalgits;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -26,6 +27,7 @@ import static com.loopj.android.http.AsyncHttpClient.log;
 
 public class Login extends AppCompatActivity {
 
+    boolean doubleBackToExitPressedOnce = false;
     private Button btnLinkRegist, btnLogin;
     private EditText usernameLog, passwordLog;
     ProgressDialog loading;
@@ -51,6 +53,7 @@ public class Login extends AppCompatActivity {
             public void onClick(View view) {
                 Intent toRegisterAct = new Intent(getApplicationContext(),Register.class);
                 startActivity(toRegisterAct);
+                finish();
             }
         });
 
@@ -82,6 +85,7 @@ public class Login extends AppCompatActivity {
                                     String username = jsonRESULTS.getJSONObject("user").getString("username");
                                     Intent i = new Intent(mContext, MainActivity.class);
                                     startActivity(i);
+                                    finish();
                                 }
                                 else {
                                     String error_message = jsonRESULTS.getString("error_message");
@@ -104,5 +108,24 @@ public class Login extends AppCompatActivity {
                         loading.dismiss();
                     }
                 });
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Exit on Second Press", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce=false;
+            }
+        }, 2000);
     }
 }

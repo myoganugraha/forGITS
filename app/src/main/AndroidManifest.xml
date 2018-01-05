@@ -20,8 +20,7 @@
         </activity>
 
         <activity android:name=".Register"
-            android:label="Register"
-            android:parentActivityName=".Login"/>
+            android:label="Register"/>
 
         <activity android:name=".MainActivity"
             android:label="Home"

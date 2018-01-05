@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -32,6 +33,7 @@ import retrofit2.Response;
 
 public class Register extends AppCompatActivity {
 
+    boolean doubleBackToExitPressedOnce = false;
     Button signUp;
     EditText firstname, lastname, username, password, bday, phone;
     Calendar myCalendar = Calendar.getInstance();
@@ -125,10 +127,11 @@ public class Register extends AppCompatActivity {
                             loading.dismiss();
                             try {
                                 JSONObject jsonRESULTS = new JSONObject(response.body().string());
-                                if(jsonRESULTS.getString("error").equals("false")){
+                                if(jsonRESULTS.getString("status").equals("true")){
                                     Toast.makeText(mContext, "REGISTRATION SUCCESS", Toast.LENGTH_SHORT).show();
                                     Intent i = new Intent(mContext, Login.class);
                                     startActivity(i);
+                                    finish();
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -156,6 +159,24 @@ public class Register extends AppCompatActivity {
         bday.setText(sdf.format(myCalendar.getTime()));
     }
 
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Exit on Second Press", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce=false;
+            }
+        }, 2000);
+    }
 
 
 

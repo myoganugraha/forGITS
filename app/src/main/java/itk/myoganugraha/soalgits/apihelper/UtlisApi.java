@@ -5,7 +5,7 @@ package itk.myoganugraha.soalgits.apihelper;
  */
 
 public class UtlisApi {
-    public static final String BASE_URL_API = "http://myoganugrahaa.000webhostapp.com/gits/";
+    public static final String BASE_URL_API = "http://dev.gits.id:1090/index.php/";
 
     public static BaseApiService getAPIService(){
         return RetrofitClient.getClient(BASE_URL_API).create(BaseApiService.class);
