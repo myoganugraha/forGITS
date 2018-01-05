@@ -37,6 +37,7 @@ public class Login extends AppCompatActivity {
     Context mContext;
     BaseApiService mApiService;
     String StringAwal, StringHasil;
+    SharedPrefManager sharedPrefManager;
 
 
 
@@ -50,6 +51,13 @@ public class Login extends AppCompatActivity {
         mContext = this;
         mApiService = UtlisApi.getAPIService();
         initComponents();
+
+        sharedPrefManager = new SharedPrefManager(this);
+        if (sharedPrefManager.getSPSudahLogin()){
+            startActivity(new Intent(mContext, MainActivity.class)
+                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
+            finish();
+        }
 
 
 
@@ -99,7 +107,9 @@ public class Login extends AppCompatActivity {
                                     //String username = jsonRESULTS.getJSONObject("user").getString("username");
                                     Intent i = new Intent(mContext, MainActivity.class);
                                     //getIntent().putExtra("result_nama", username);
+                                    sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_SUDAH_LOGIN, true);
                                     startActivity(i);
+                                    finish();
                                 }
                                 else {
                                     String error_message = jsonRESULTS.getString("error_message");
