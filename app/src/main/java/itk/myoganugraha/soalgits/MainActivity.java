@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.logout:
                 sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_SUDAH_LOGIN, false);
+                Toast.makeText(mContext, "You've Been Logout", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(mContext, Login.class)
                         .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
                 finish();

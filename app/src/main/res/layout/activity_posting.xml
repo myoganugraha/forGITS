@@ -107,7 +107,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="10dp"
                 android:text="Choose Photo" />
 
             <Button
@@ -115,8 +115,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
-                android:layout_marginEnd="20dp"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="65dp"
                 android:text="Upload" />
         </LinearLayout>
 
@@ -124,9 +123,9 @@
 
         <ImageView
             android:id="@+id/img_thumb"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="matrix"
+            android:layout_width="320dp"
+            android:layout_height="240dp"
+            android:scaleType="centerInside"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"/>
 
