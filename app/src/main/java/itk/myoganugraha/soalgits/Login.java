@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -43,6 +44,7 @@ public class Login extends AppCompatActivity {
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,7 +71,7 @@ public class Login extends AppCompatActivity {
         btnLinkRegist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent toRegisterAct = new Intent(getApplicationContext(),Register.class);
+                Intent toRegisterAct = new Intent(mContext,Register.class);
                 startActivity(toRegisterAct);
                 finish();
             }
