@@ -3,6 +3,8 @@
     package="itk.myoganugraha.soalgits">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -30,7 +32,8 @@
 
         <activity
             android:name=".Posting"
-            android:parentActivityName=".MainActivity"/>
+            android:parentActivityName=".MainActivity"
+            android:label="Post"/>
     </application>
 
 </manifest>

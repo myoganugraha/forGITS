@@ -34,7 +34,7 @@ import retrofit2.Response;
 public class Register extends AppCompatActivity {
 
     boolean doubleBackToExitPressedOnce = false;
-    Button signUp;
+    Button signUp, toLogin;
     EditText firstname, lastname, username, password, bday, phone;
     Calendar myCalendar = Calendar.getInstance();
     RadioGroup genderRadioGroup;
@@ -67,6 +67,7 @@ public class Register extends AppCompatActivity {
         genderRadioGroup = (RadioGroup) findViewById(R.id.radioGroupGender);
         phone = (EditText) findViewById(R.id.phoneNumber);
         signUp = (Button) findViewById(R.id.btnRegister);
+        toLogin = (Button) findViewById(R.id.btnToLogin);
 
         final int selectId = genderRadioGroup.getCheckedRadioButtonId();
         if(selectId == R.id.lakiLakiRB){
@@ -105,6 +106,15 @@ public class Register extends AppCompatActivity {
             public void onClick(View view) {
                 loading = ProgressDialog.show(mContext, null, "Please Wait", true, false);
                 requestRegister();
+            }
+        });
+
+        toLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent toLoginAct = new Intent(mContext,Login.class);
+                startActivity(toLoginAct);
+                finish();
             }
         });
 

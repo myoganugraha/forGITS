@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent toPosting = new Intent(mContext,Posting.class);
                 startActivity(toPosting);
-                finish();
             }
         });
     }
