@@ -10,7 +10,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -21,6 +23,9 @@ public class MainActivity extends AppCompatActivity {
     Context mContext;
     SharedPrefManager sharedPrefManager;
     FloatingActionButton fab;
+    GridView simpleGrid;
+    int logos[] = {R.drawable.dataran_tinggi, R.drawable.dataran_rendah, R.drawable.pantai};
+    String listMenu[] = {"Dataran Tinggi", "Dataran Rendah", "Pantai"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +38,30 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initComponents() {
+
+        simpleGrid = (GridView) findViewById(R.id.simpleGridView);
+        CustomAdapterGridview customAdapterGridview = new CustomAdapterGridview(mContext, logos, listMenu);
+        simpleGrid.setAdapter(customAdapterGridview);
+
+        simpleGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if(i==0){
+                    Intent intent = new Intent(mContext, DataranTinggi.class);
+                    startActivity(intent);
+                }
+                else if(i==1){
+                    Intent intent = new Intent(mContext, DataranRendah.class);
+                    startActivity(intent);
+                }
+                else if(i==2){
+                    Intent intent = new Intent(mContext, Pantai.class);
+                    startActivity(intent);
+                }
+            }
+        });
+
+
         fab = (FloatingActionButton) findViewById(R.id.FAB);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

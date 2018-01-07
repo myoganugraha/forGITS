@@ -3,8 +3,8 @@
     package="itk.myoganugraha.soalgits">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -25,15 +25,26 @@
         <activity
             android:name=".Register"
             android:label="Register" />
-
         <activity
             android:name=".MainActivity"
             android:label="Home" />
-
         <activity
             android:name=".Posting"
+            android:label="Tambahkan Informasi Wisata"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".DataranTinggi"
+            android:label="Dataran Tinggi"
+            android:parentActivityName=".MainActivity"/>
+        <activity
+            android:name=".DataranRendah"
+            android:label="Dataran Rendah"
             android:parentActivityName=".MainActivity"
-            android:label="Post"/>
+            />
+        <activity
+            android:name=".Pantai"
+            android:label="Pantai"
+            android:parentActivityName=".MainActivity"/>
     </application>
 
 </manifest>
