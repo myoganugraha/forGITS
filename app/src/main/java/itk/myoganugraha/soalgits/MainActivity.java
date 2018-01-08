@@ -6,6 +6,9 @@ import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -15,6 +18,12 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import itk.myoganugraha.soalgits.Adapter.RecyclerViewMenuAdapater;
+import itk.myoganugraha.soalgits.Model.MainMenu;
+
 public class MainActivity extends AppCompatActivity {
 
 
@@ -23,7 +32,14 @@ public class MainActivity extends AppCompatActivity {
     Context mContext;
     SharedPrefManager sharedPrefManager;
     FloatingActionButton fab;
-    GridView simpleGrid;
+
+    private RecyclerView recyclerView;
+    private RecyclerView.LayoutManager layoutManager;
+    private GridLayoutManager mGridLayoutManager;
+
+    private List<MainMenu> mainMenuList;
+    private RecyclerViewMenuAdapater recyclerViewMenuAdapater;
+
     int logos[] = {R.drawable.dataran_tinggi, R.drawable.dataran_rendah, R.drawable.pantai};
     String listMenu[] = {"Dataran Tinggi", "Dataran Rendah", "Pantai"};
 
@@ -39,28 +55,43 @@ public class MainActivity extends AppCompatActivity {
 
     private void initComponents() {
 
-        simpleGrid = (GridView) findViewById(R.id.simpleGridView);
-        CustomAdapterGridview customAdapterGridview = new CustomAdapterGridview(mContext, logos, listMenu);
-        simpleGrid.setAdapter(customAdapterGridview);
+        recyclerView = (RecyclerView)findViewById(R.id.recycler_view_main_menu);
+        if(recyclerView != null){
+            recyclerView.setHasFixedSize(true);
+        }
 
-        simpleGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mGridLayoutManager = new GridLayoutManager(mContext, 3);
+        recyclerView.setLayoutManager(mGridLayoutManager);
+
+
+        mainMenuList = new ArrayList<>();
+        for (int i = 0; i< listMenu.length; i++){
+            MainMenu mainMenu = new MainMenu(logos[i], listMenu[i]);
+            mainMenuList.add(mainMenu);
+        }
+
+        recyclerViewMenuAdapater = new RecyclerViewMenuAdapater(mContext, mainMenuList);
+
+        recyclerView.setAdapter(recyclerViewMenuAdapater);
+        recyclerViewMenuAdapater.notifyDataSetChanged();
+
+        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                if(i==0){
+            public void onItemClickListener(View view, int position) {
+                if(position==0){
                     Intent intent = new Intent(mContext, DataranTinggi.class);
                     startActivity(intent);
                 }
-                else if(i==1){
+                else if(position==1){
                     Intent intent = new Intent(mContext, DataranRendah.class);
                     startActivity(intent);
                 }
-                else if(i==2){
+                else if(position==2){
                     Intent intent = new Intent(mContext, Pantai.class);
                     startActivity(intent);
                 }
             }
-        });
-
+        }));
 
         fab = (FloatingActionButton) findViewById(R.id.FAB);
         fab.setOnClickListener(new View.OnClickListener() {

@@ -2,9 +2,9 @@ package itk.myoganugraha.soalgits.apihelper;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
-import retrofit2.Response;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 /**
@@ -16,6 +16,7 @@ public interface BaseApiService {
     @POST("api/post/user/login")
     Call<ResponseBody> loginRequest(@Field("username") String username,
                                     @Field("password") String password);
+
 
     @FormUrlEncoded
     @POST("api/post/user/account")
@@ -35,5 +36,13 @@ public interface BaseApiService {
                                     @Field("deskripsi") String deskripsi,
                                     @Field("id_user") String id_user,
                                     @Field("image") String image);
+
+
+
+    //@GET("/api/get/filter/dataalam?kategori=1")
+    //Call<JSONResponseTinggi> getDaftarDataranTinggi();
+
+
+
 
 }

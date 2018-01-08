@@ -1,15 +1,18 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="16dp">
 
-    <GridView
-        android:id="@+id/simpleGridView"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:footerDividersEnabled="false"
-        android:padding="1dp"
-        android:numColumns="3" />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view_main_menu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"/>
+
+
+
 
 
     <RelativeLayout
@@ -20,19 +23,16 @@
         android:id="@+id/FAB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
         android:clickable="true"
         android:src="@drawable/ic_add"
         app:borderWidth="0dp"
         android:focusable="true"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="20dp"
 
         />
 
     </RelativeLayout>
 
 
-</FrameLayout>
+</RelativeLayout>
