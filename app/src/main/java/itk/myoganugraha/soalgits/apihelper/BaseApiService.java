@@ -34,12 +34,12 @@ public interface BaseApiService {
 
     @FormUrlEncoded
     @POST("api/post/data/upload")
-    Call<ResponseBody> posting     (@Field("judul") String judul,
+    Call<ResponseBody> posting     (@Field("judul") String Judul,
                                     @Field("location") String location,
                                     @Field("kategori") String kategori,
-                                    @Field("deskripsi") String deskripsi);
+                                    @Field("deskripsi") String deskripsi,
                                     //@Field("id_user") String id_user,
-                                    //@Field("image") String image);
+                                    @Field("image") String image);
 
 
 

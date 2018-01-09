@@ -30,6 +30,7 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 import itk.myoganugraha.soalgits.Model.MainMenuDataAlam;
 import itk.myoganugraha.soalgits.apihelper.BaseApiService;
@@ -47,15 +48,14 @@ public class Posting extends AppCompatActivity {
     private Button btnChoose;
     private Button btnUpload;
     Context mContext;
-    private Uri uri;
-    private Bitmap bitmap;
+    Uri uri;
+    Bitmap bitmap;
 
     boolean doubleBackToExitPressedOnce = false;
     EditText judulPost, locationPost, deskripsiPost;
     RadioGroup kategoriPost;
-    RadioButton radioKategori;
     ProgressDialog loading;
-    BaseApiService mApiService1;
+    BaseApiService mApiService;
     SharedPrefManager sharedPrefManager;
     String kategori;
 
@@ -65,6 +65,7 @@ public class Posting extends AppCompatActivity {
         setContentView(R.layout.activity_posting);
 
         mContext = this;
+        mApiService = itk.myoganugraha.soalgits.apihelper.UtlisApi.getAPIService();
         initComponents();
     }
 
@@ -75,14 +76,15 @@ public class Posting extends AppCompatActivity {
         deskripsiPost = (EditText)findViewById(R.id.deskripsi);
         kategoriPost = (RadioGroup)findViewById(R.id.radioGroupKategori);
 
-        final int selectId = kategoriPost.getCheckedRadioButtonId();
-        if(selectId == R.id.datTinggiRB){
+
+        final int selectId1 = kategoriPost.getCheckedRadioButtonId();
+        if(selectId1 == R.id.datTinggiRB){
             kategori = "1";
         }
-        else if (selectId == R.id.datRendahRB){
+        else if (selectId1 == R.id.datRendahRB){
             kategori = "2";
         }
-        else if (selectId == R.id.pantaiRB){
+        else if (selectId1 == R.id.pantaiRB){
             kategori = "3";
         }
 
@@ -101,19 +103,34 @@ public class Posting extends AppCompatActivity {
         btnUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                loading = ProgressDialog.show(mContext, null, "Please Wait", true, false);
-                requestPost();                        
+                if(kategoriPost.getCheckedRadioButtonId() == -1){
+                    Toast.makeText(mContext, "Choose the Category", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    if(judulPost.getText().toString().trim().equalsIgnoreCase("") || locationPost.getText().toString().trim().equalsIgnoreCase("") || deskripsiPost.getText().toString().trim().equalsIgnoreCase("")   ){
+                        Toast.makeText(mContext, "Fill the Blank Field", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    else {
+                        loading = ProgressDialog.show(mContext, null, "Please Wait", true, false);
+                        requestPost();
+                    }
+                }
             }
         });
         
     }
 
-    private void requestPost() {
-        mApiService1.posting(
+    private void requestPost(){
+        String base64String = ImageUtil.convert(bitmap);
+
+        mApiService.posting(
                 judulPost.getText().toString(),
                 locationPost.getText().toString(),
-                kategori.toString(),
-                deskripsiPost.getText().toString())
+                kategori,
+                deskripsiPost.getText().toString(),
+                base64String
+                )
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -124,7 +141,7 @@ public class Posting extends AppCompatActivity {
                                 JSONObject jsonRESULTS = new JSONObject(response.body().string());
                                 if(jsonRESULTS.getString("status").equals("true")){
                                     Toast.makeText(mContext, "Thank You", Toast.LENGTH_SHORT).show();
-                                    Intent i = new Intent(mContext, Login.class);
+                                    Intent i = new Intent(mContext, MainActivity.class);
                                     startActivity(i);
                                     finish();
                                 }
@@ -145,7 +162,6 @@ public class Posting extends AppCompatActivity {
                         Toast.makeText(mContext, "Bad Network", Toast.LENGTH_SHORT).show();
                     }
                 });
-
     }
 
     private void choosePhoto() {
@@ -177,13 +193,15 @@ public class Posting extends AppCompatActivity {
 
         if (requestCode == PICK_IMAGE && resultCode == RESULT_OK && data != null && data.getData() != null) {
             uri = data.getData();
+
             try {
+
                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                 imgThumb.setVisibility(View.VISIBLE);
                 imgThumb.setImageBitmap(bitmap);
 
-
             } catch (IOException e) {
+
                 e.printStackTrace();
             }
         }

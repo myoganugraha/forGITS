@@ -104,8 +104,20 @@ public class Register extends AppCompatActivity {
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                loading = ProgressDialog.show(mContext, null, "Please Wait", true, false);
-                requestRegister();
+                if(genderRadioGroup.getCheckedRadioButtonId() == -1){
+                    Toast.makeText(mContext, "Choose Your Sex", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    if(firstname.getText().toString().trim().equalsIgnoreCase("") || bday.getText().toString().trim().equalsIgnoreCase("") || lastname.getText().toString().trim().equalsIgnoreCase("") || username.getText().toString().trim().equalsIgnoreCase("") || password.getText().toString().trim().equalsIgnoreCase("") || phone.getText().toString().trim().equalsIgnoreCase("")){
+                        Toast.makeText(mContext, "Fill the Blank Field", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    else {
+                        loading = ProgressDialog.show(mContext, null, "Please Wait", true, false);
+                        requestRegister();
+                    }
+                }
+
             }
         });
 
@@ -129,6 +141,7 @@ public class Register extends AppCompatActivity {
                 bday.getText().toString(),
                 gender,
                 phone.getText().toString())
+
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
