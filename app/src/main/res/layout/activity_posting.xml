@@ -127,10 +127,21 @@
             android:layout_height="240dp"
             android:scaleType="centerInside"
             android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"/>
+            android:layout_marginEnd="20dp"
+            android:visibility="gone"/>
 
+
+        <ProgressBar
+            android:id="@+id/progressBarPosting"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center|bottom"
+            android:layout_marginBottom="20dp"
+            android:visibility="gone" />
 
 
 
     </LinearLayout>
+
+
 </ScrollView>

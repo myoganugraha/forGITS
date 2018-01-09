@@ -6,11 +6,11 @@ import java.util.jar.Manifest;
  * Created by M. Yoga Nugraha on 1/8/2018.
  */
 
-public class MainMenu {
+public class MainMenuTigaMenu {
     private int icon;
     private String menu;
 
-    public MainMenu(int icon, String menu){
+    public MainMenuTigaMenu(int icon, String menu){
         this.icon = icon;
         this.menu = menu;
     }

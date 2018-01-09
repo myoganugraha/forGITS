@@ -3,6 +3,7 @@ package itk.myoganugraha.soalgits;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -106,9 +107,9 @@ public class Login extends AppCompatActivity {
                                 JSONObject jsonRESULTS = new JSONObject(response.body().string());
                                 if(jsonRESULTS.getString("status").equals("true")){
                                     Toast.makeText(mContext, "Login Success", Toast.LENGTH_SHORT).show();
-                                    //String username = jsonRESULTS.getJSONObject("user").getString("username");
+                                   // String id_user= jsonRESULTS.getJSONObject("data").getString("id_user");
                                     Intent i = new Intent(mContext, MainActivity.class);
-                                    //getIntent().putExtra("result_nama", username);
+                                  //  getIntent().putExtra("Id_user", id_user);
                                     sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_SUDAH_LOGIN, true);
                                     startActivity(i);
                                     finish();

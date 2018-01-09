@@ -2,21 +2,41 @@ package itk.myoganugraha.soalgits;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+
+import itk.myoganugraha.soalgits.Model.MainMenuDataAlam;
+import itk.myoganugraha.soalgits.apihelper.BaseApiService;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Posting extends AppCompatActivity {
 
@@ -30,6 +50,15 @@ public class Posting extends AppCompatActivity {
     private Uri uri;
     private Bitmap bitmap;
 
+    boolean doubleBackToExitPressedOnce = false;
+    EditText judulPost, locationPost, deskripsiPost;
+    RadioGroup kategoriPost;
+    RadioButton radioKategori;
+    ProgressDialog loading;
+    BaseApiService mApiService1;
+    SharedPrefManager sharedPrefManager;
+    String kategori;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,14 +70,82 @@ public class Posting extends AppCompatActivity {
 
     private void initComponents() {
         imgThumb = (ImageView) findViewById(R.id.img_thumb);
+        judulPost = (EditText)findViewById(R.id.judul);
+        locationPost = (EditText)findViewById(R.id.location);
+        deskripsiPost = (EditText)findViewById(R.id.deskripsi);
+        kategoriPost = (RadioGroup)findViewById(R.id.radioGroupKategori);
+
+        final int selectId = kategoriPost.getCheckedRadioButtonId();
+        if(selectId == R.id.datTinggiRB){
+            kategori = "1";
+        }
+        else if (selectId == R.id.datRendahRB){
+            kategori = "2";
+        }
+        else if (selectId == R.id.pantaiRB){
+            kategori = "3";
+        }
+
+
 
         btnChoose = (Button) findViewById(R.id.btn_choose_photo);
         btnChoose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 choosePhoto();
+
             }
         });
+        
+        btnUpload = (Button) findViewById(R.id.btn_upload);
+        btnUpload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loading = ProgressDialog.show(mContext, null, "Please Wait", true, false);
+                requestPost();                        
+            }
+        });
+        
+    }
+
+    private void requestPost() {
+        mApiService1.posting(
+                judulPost.getText().toString(),
+                locationPost.getText().toString(),
+                kategori.toString(),
+                deskripsiPost.getText().toString())
+                .enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        if(response.isSuccessful()){
+                            Log.i("debug", "onResponse: SUCCESS");
+                            loading.dismiss();
+                            try {
+                                JSONObject jsonRESULTS = new JSONObject(response.body().string());
+                                if(jsonRESULTS.getString("status").equals("true")){
+                                    Toast.makeText(mContext, "Thank You", Toast.LENGTH_SHORT).show();
+                                    Intent i = new Intent(mContext, Login.class);
+                                    startActivity(i);
+                                    finish();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        } else {
+                            Log.i("debug", "onResponse: FAILED");
+                            loading.dismiss();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Log.e("debug", "onFailure: ERROR >" + t.getMessage());
+                        Toast.makeText(mContext, "Bad Network", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
     }
 
     private void choosePhoto() {
@@ -82,7 +179,9 @@ public class Posting extends AppCompatActivity {
             uri = data.getData();
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                imgThumb.setVisibility(View.VISIBLE);
                 imgThumb.setImageBitmap(bitmap);
+
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -104,5 +203,26 @@ public class Posting extends AppCompatActivity {
                 return;
             }
         }
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            Intent intent = new Intent(mContext, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Back to Main Menu on Second Press", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce=false;
+            }
+        }, 2000);
     }
 }

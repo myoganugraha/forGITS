@@ -1,5 +1,9 @@
 package itk.myoganugraha.soalgits.apihelper;
 
+import itk.myoganugraha.soalgits.JSONResponse.JSONResponseDatRendah;
+import itk.myoganugraha.soalgits.JSONResponse.JSONResponseDatTinggi;
+import itk.myoganugraha.soalgits.JSONResponse.JSONResponseMainMenu;
+import itk.myoganugraha.soalgits.JSONResponse.JSONResponsePantai;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -33,14 +37,23 @@ public interface BaseApiService {
     Call<ResponseBody> posting     (@Field("judul") String judul,
                                     @Field("location") String location,
                                     @Field("kategori") String kategori,
-                                    @Field("deskripsi") String deskripsi,
-                                    @Field("id_user") String id_user,
-                                    @Field("image") String image);
+                                    @Field("deskripsi") String deskripsi);
+                                    //@Field("id_user") String id_user,
+                                    //@Field("image") String image);
 
 
 
-    //@GET("/api/get/filter/dataalam?kategori=1")
-    //Call<JSONResponseTinggi> getDaftarDataranTinggi();
+    @GET("api/get/dataalam")
+    Call<JSONResponseMainMenu> getJSONDataAlam();
+
+    @GET("api/get/filter/dataalam?kategori=1")
+    Call<JSONResponseDatTinggi> getJSONDatTinggi();
+
+    @GET("api/get/filter/dataalam?kategori=2")
+    Call<JSONResponseDatRendah> getJSONDatRendah();
+
+    @GET("api/get/filter/dataalam?kategori=3")
+    Call<JSONResponsePantai> getJSONPantai();
 
 
 

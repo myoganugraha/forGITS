@@ -30,8 +30,7 @@
             android:label="Home" />
         <activity
             android:name=".Posting"
-            android:label="Tambahkan Informasi Wisata"
-            android:parentActivityName=".MainActivity" />
+            android:label="Tambahkan Informasi Wisata"/>
         <activity
             android:name=".DataranTinggi"
             android:label="Dataran Tinggi"
