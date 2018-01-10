@@ -2,8 +2,10 @@ package itk.myoganugraha.soalgits.apihelper;
 
 import itk.myoganugraha.soalgits.JSONResponse.JSONResponseDatRendah;
 import itk.myoganugraha.soalgits.JSONResponse.JSONResponseDatTinggi;
+import itk.myoganugraha.soalgits.JSONResponse.JSONResponseDetail;
 import itk.myoganugraha.soalgits.JSONResponse.JSONResponseMainMenu;
 import itk.myoganugraha.soalgits.JSONResponse.JSONResponsePantai;
+import itk.myoganugraha.soalgits.Model.DetailWisata;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -55,6 +57,8 @@ public interface BaseApiService {
     @GET("api/get/filter/dataalam?kategori=3")
     Call<JSONResponsePantai> getJSONPantai();
 
+    @GET("api/get/detil/dataalam?itemid=1")
+    Call<JSONResponseDetail> getJSONDetail();
 
 
 

@@ -1,11 +1,13 @@
 package itk.myoganugraha.soalgits;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,7 +27,7 @@ public class Pantai extends AppCompatActivity {
     SharedPrefManager sharedPrefManager;
     RecyclerView recyclerViewPantai;
 
-    private ArrayList<ModelPantai> datRendahs;
+    private ArrayList<ModelPantai> pantais;
     private RecyclerViewPantaiAdapter recyclerViewPantaiAdapter;
 
     @Override
@@ -44,6 +46,19 @@ public class Pantai extends AppCompatActivity {
         recyclerViewPantai.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(mContext);
         recyclerViewPantai.setLayoutManager(layoutManager);
+        recyclerViewPantai.addOnItemTouchListener(new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClickListener(View view, int position) {
+                if(pantais.size()>position){
+                    if(pantais.get(position) != null){
+                        Intent intent = new Intent(mContext, DetailAlamActivty.class);
+                        intent.putExtra("id_data", pantais.get(position).getId_data());
+                        startActivity(intent);
+                    }
+                }
+            }
+        }));
+
         loadJSONPantai();
     }
 
@@ -56,8 +71,8 @@ public class Pantai extends AppCompatActivity {
             public void onResponse(Call<JSONResponsePantai> call, Response<JSONResponsePantai> response) {
 
                 JSONResponsePantai jsonResponseMainMenu =  response.body();
-                datRendahs = new ArrayList<>(Arrays.asList(jsonResponseMainMenu.getData()));
-                recyclerViewPantaiAdapter = new RecyclerViewPantaiAdapter(mContext, datRendahs);
+                pantais = new ArrayList<>(Arrays.asList(jsonResponseMainMenu.getData()));
+                recyclerViewPantaiAdapter = new RecyclerViewPantaiAdapter(mContext, pantais);
                 recyclerViewPantai.setAdapter(recyclerViewPantaiAdapter);
             }
 

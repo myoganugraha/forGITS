@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.codesgood.views.JustifiedTextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -42,6 +43,7 @@ public class RecyclerViewDatRendahAdapter extends RecyclerView.Adapter<RecyclerV
     public void onBindViewHolder(RecyclerViewDatRendahAdapter.ViewHolder holder, int position) {
         DatRendah datRendah = dataAlams.get(position);
         holder.judulWisata.setText(datRendah.getTitle());
+        holder.descWisata.setText(datRendah.getDescription());
         Picasso.with(mContext).load(BASE_IMAGE + datRendah.getUrl_image()).resize(120, 60).into(holder.thumbnailDatRendah);
 
     }
@@ -54,12 +56,14 @@ public class RecyclerViewDatRendahAdapter extends RecyclerView.Adapter<RecyclerV
     public class ViewHolder extends RecyclerView.ViewHolder{
         private ImageView thumbnailDatRendah;
         private TextView judulWisata;
+        private JustifiedTextView descWisata;
 
         public ViewHolder(View view){
             super(view);
 
             thumbnailDatRendah = (ImageView)view.findViewById(R.id.thumbnailDatRendah);
             judulWisata = (TextView)view.findViewById(R.id.titleDatRendah);
+            descWisata = (JustifiedTextView) view.findViewById(R.id.descDatRendah);
         }
     }
 }

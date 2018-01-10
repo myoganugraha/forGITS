@@ -7,6 +7,9 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class MainMenuDataAlam {
+    @SerializedName("id_data")
+    private String id_data;
+
     @SerializedName("title")
     private String title;
 
@@ -17,12 +20,16 @@ public class MainMenuDataAlam {
 
 
 
-    public MainMenuDataAlam(String title, String url_image){
+    public MainMenuDataAlam( String title, String url_image){
         this.url_image = url_image;
         this.title = title;
     }
 
 
+
+    public String getId_data(){ return id_data; }
+
+    public void setId_data(String id_data){ this.id_data = id_data;}
 
     public String getTitle(){
         return title;

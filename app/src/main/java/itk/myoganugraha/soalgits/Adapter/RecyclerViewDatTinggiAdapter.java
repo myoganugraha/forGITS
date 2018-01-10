@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.codesgood.views.JustifiedTextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -29,8 +30,6 @@ public class RecyclerViewDatTinggiAdapter extends RecyclerView.Adapter<RecyclerV
     public RecyclerViewDatTinggiAdapter(Context mContext, ArrayList<DatTinggi> dataAlams){
         this.dataAlams = dataAlams;
         this.mContext = mContext;
-
-
     }
 
     @Override
@@ -43,6 +42,7 @@ public class RecyclerViewDatTinggiAdapter extends RecyclerView.Adapter<RecyclerV
     @Override
     public void onBindViewHolder(RecyclerViewDatTinggiAdapter.ViewHolder holder, int position) {
         DatTinggi datTinggi = dataAlams.get(position);
+        holder.descWisata.setText(datTinggi.getDescription());
         holder.judulWisata.setText(datTinggi.getTitle());
         Picasso.with(mContext).load(BASE_IMAGE + datTinggi.getUrl_image()).resize(120, 60).into(holder.thumbnailDatTinggi);
 
@@ -56,12 +56,14 @@ public class RecyclerViewDatTinggiAdapter extends RecyclerView.Adapter<RecyclerV
     public class ViewHolder extends RecyclerView.ViewHolder{
         private ImageView thumbnailDatTinggi;
         private TextView judulWisata;
+        private JustifiedTextView descWisata;
 
         public ViewHolder(View view){
             super(view);
 
             thumbnailDatTinggi = (ImageView)view.findViewById(R.id.thumbnailDatTinggi);
             judulWisata = (TextView)view.findViewById(R.id.titleDatTinggi);
+            descWisata = (JustifiedTextView) view.findViewById(R.id.descDatTinggi);
         }
     }
 }

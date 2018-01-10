@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.codesgood.views.JustifiedTextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -42,6 +43,7 @@ public class RecyclerViewPantaiAdapter extends RecyclerView.Adapter<RecyclerView
     public void onBindViewHolder(RecyclerViewPantaiAdapter.ViewHolder holder, int position) {
         ModelPantai modelPantai = dataAlams.get(position);
         holder.judulWisata.setText(modelPantai.getTitle());
+        holder.descWisata.setText(modelPantai.getDescription());
         Picasso.with(mContext).load(BASE_IMAGE + modelPantai.getUrl_image()).resize(120, 60)
                 .into(holder.thumbnailPantai);
 
@@ -55,12 +57,14 @@ public class RecyclerViewPantaiAdapter extends RecyclerView.Adapter<RecyclerView
     public class ViewHolder extends RecyclerView.ViewHolder{
         private ImageView thumbnailPantai;
         private TextView judulWisata;
+        private JustifiedTextView descWisata;
 
         public ViewHolder(View view){
             super(view);
 
             thumbnailPantai = (ImageView)view.findViewById(R.id.thumbnailPantai);
             judulWisata = (TextView)view.findViewById(R.id.titlePantai);
+            descWisata = (JustifiedTextView) view.findViewById(R.id.descPantai);
         }
     }
 }

@@ -1,11 +1,13 @@
 package itk.myoganugraha.soalgits;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -44,6 +46,19 @@ public class DataranRendah extends AppCompatActivity {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(mContext);
         recyclerViewDatRendah.setLayoutManager(layoutManager);
         loadJSONDatRendah();
+
+        recyclerViewDatRendah.addOnItemTouchListener(new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClickListener(View view, int position) {
+                if(datRendahs.size()>position){
+                    if(datRendahs.get(position) != null){
+                        Intent intent = new Intent(mContext, DetailAlamActivty.class);
+                        intent.putExtra("id_data", datRendahs.get(position).getId_data());
+                        startActivity(intent);
+                    }
+                }
+            }
+        }));
     }
 
     private void loadJSONDatRendah() {

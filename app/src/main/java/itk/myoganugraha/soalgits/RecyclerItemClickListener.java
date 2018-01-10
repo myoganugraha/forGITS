@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.MotionEvent;
 import android.view.GestureDetector;
 import android.view.View;
+import android.widget.AdapterView;
 
 
 /**
@@ -15,9 +16,10 @@ public class RecyclerItemClickListener implements RecyclerView.OnItemTouchListen
     private OnItemClickListener mListener;
     GestureDetector gestureDetector;
 
-    public interface OnItemClickListener{
+    public interface OnItemClickListener {
         public void onItemClickListener(View view, int position);
     }
+
 
     public RecyclerItemClickListener(Context mContext, OnItemClickListener mListener){
         this.mListener = mListener;

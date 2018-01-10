@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/cardViewDatRendah"
+    android:id="@+id/cardViewDetail"
     android:padding="16dp"
     android:orientation="vertical"
     app:cardPreventCornerOverlap="false"
@@ -18,34 +18,39 @@
         android:layout_height="wrap_content"
         android:padding="1dp">
 
-        <ImageView
-            android:id="@+id/thumbnailDatRendah"
-            android:layout_width="match_parent"
-            android:layout_height="110dp"
-            android:scaleType="fitStart"
-            android:layout_gravity="center_horizontal"
-            android:src="@drawable/dataran_tinggi"
-            android:layout_marginTop="20dp" />
-
         <TextView
-            android:id="@+id/titleDatRendah"
-            android:layout_below="@id/thumbnailDatRendah"
+            android:id="@+id/kategoriDetail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="This is Just Dummy Text"
-            android:textAlignment="center"
-            android:textStyle="bold"
-            android:paddingBottom="10dp" />
+            android:textAlignment="viewEnd"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:paddingBottom="10dp"/>
+
+        <TextView
+            android:id="@+id/locDetail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="This is Just Dummy Text"
+            android:textAlignment="viewStart"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:paddingBottom="10dp"/>
+
+
 
         <com.codesgood.views.JustifiedTextView
-            android:id="@+id/descDatRendah"
-            android:layout_below="@id/titleDatRendah"
+            android:id="@+id/descDetail"
+            android:layout_below="@id/kategoriDetail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="This is Just Dummy Text"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
+            android:layout_marginTop="30dp"
             android:paddingBottom="10dp"/>
+
 
 
 

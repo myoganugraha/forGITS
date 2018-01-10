@@ -2,10 +2,10 @@ package itk.myoganugraha.soalgits;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,7 +14,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -118,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }));
+
     }
 
 
@@ -128,6 +128,19 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(mContext);
         recyclerViewMainMenu.setLayoutManager(layoutManager);
         loadJSONMainMenu();
+
+        recyclerViewMainMenu.addOnItemTouchListener(new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClickListener(View view, int position) {
+                if(mainMenuDataAlam.size()>position){
+                    if(mainMenuDataAlam.get(position) != null){
+                        Intent intent = new Intent(mContext, DetailAlamActivty.class);
+                        intent.putExtra("id_data", mainMenuDataAlam.get(position).getId_data());
+                        startActivity(intent);
+                    }
+                }
+            }
+        }));
     }
 
     private void loadJSONMainMenu() {

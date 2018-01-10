@@ -3,11 +3,9 @@ package itk.myoganugraha.soalgits;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Handler;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,12 +15,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.security.DigestException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import itk.myoganugraha.soalgits.apihelper.BaseApiService;
-import itk.myoganugraha.soalgits.apihelper.*;
+import itk.myoganugraha.soalgits.apihelper.UtlisApi;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;

@@ -11,6 +11,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Handler;
 import android.provider.MediaStore;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +24,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -58,6 +60,8 @@ public class Posting extends AppCompatActivity {
     BaseApiService mApiService;
     SharedPrefManager sharedPrefManager;
     String kategori;
+
+    //TODO fix posting, get id user
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,14 +108,22 @@ public class Posting extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(kategoriPost.getCheckedRadioButtonId() == -1){
-                    Toast.makeText(mContext, "Choose the Category", Toast.LENGTH_SHORT).show();
+                    Snackbar snackbar = Snackbar
+                            .make(view, "Choose the Category", Snackbar.LENGTH_SHORT);
+                    snackbar.show();
+                }
+                else if(imgThumb.getVisibility() == view.GONE){
+                    Snackbar snackbar = Snackbar
+                            .make(view, "Attach the Picture, Please", Snackbar.LENGTH_SHORT);
+                    snackbar.show();
                 }
                 else{
-                    if(judulPost.getText().toString().trim().equalsIgnoreCase("") || locationPost.getText().toString().trim().equalsIgnoreCase("") || deskripsiPost.getText().toString().trim().equalsIgnoreCase("")   ){
-                        Toast.makeText(mContext, "Fill the Blank Field", Toast.LENGTH_SHORT).show();
+                    if (judulPost.getText().toString().trim().equalsIgnoreCase("") || locationPost.getText().toString().trim().equalsIgnoreCase("") || deskripsiPost.getText().toString().trim().equalsIgnoreCase("")) {
+                        Snackbar snackbar = Snackbar
+                                .make(view, "Fill the Blank Field", Snackbar.LENGTH_SHORT);
+                        snackbar.show();
                         return;
-                    }
-                    else {
+                    } else {
                         loading = ProgressDialog.show(mContext, null, "Please Wait", true, false);
                         requestPost();
                     }

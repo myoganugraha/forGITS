@@ -1,11 +1,13 @@
 package itk.myoganugraha.soalgits;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 
 
 import itk.myoganugraha.soalgits.Adapter.RecyclerViewDatTinggiAdapter;
@@ -49,6 +51,20 @@ public class DataranTinggi extends AppCompatActivity {
         recyclerViewDatTinggi.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(mContext);
         recyclerViewDatTinggi.setLayoutManager(layoutManager);
+
+        recyclerViewDatTinggi.addOnItemTouchListener(new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClickListener(View view, int position) {
+                if(datTinggis.size()>position){
+                    if(datTinggis.get(position) != null){
+                        Intent intent = new Intent(mContext, DetailAlamActivty.class);
+                        intent.putExtra("id_data", datTinggis.get(position).getId_data());
+                        startActivity(intent);
+                    }
+                }
+            }
+        }));
+
         loadJSONDatTinggi();
     }
 
