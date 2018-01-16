@@ -2,8 +2,8 @@ package itk.myoganugraha.soalgits;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -28,6 +28,7 @@ public class DetailAlamActivty extends AppCompatActivity {
 
     private ArrayList<DetailWisata> detailWisatas;
     private RecyclerViewDetailAdapter recyclerViewDetailAdapter;
+    private CollapsingToolbarLayout collapsingToolbarLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +47,8 @@ public class DetailAlamActivty extends AppCompatActivity {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(mContext);
         recyclerViewDetail.setLayoutManager(layoutManager);
 
+
+
         loadJSONDetail();
     }
 
@@ -61,6 +64,7 @@ public class DetailAlamActivty extends AppCompatActivity {
                 detailWisatas = new ArrayList<>(Arrays.asList(jsonResponseMainMenu.getData()));
                 recyclerViewDetailAdapter = new RecyclerViewDetailAdapter(mContext, detailWisatas);
                 recyclerViewDetail.setAdapter(recyclerViewDetailAdapter);
+
             }
 
             @Override

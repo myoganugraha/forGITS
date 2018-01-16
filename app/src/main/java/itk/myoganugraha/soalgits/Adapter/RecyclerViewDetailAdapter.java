@@ -1,9 +1,6 @@
 package itk.myoganugraha.soalgits.Adapter;
 
-import android.annotation.SuppressLint;
-import android.content.ClipData;
 import android.content.Context;
-import android.provider.ContactsContract;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,15 +9,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
 import com.codesgood.views.JustifiedTextView;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 import itk.myoganugraha.soalgits.Model.DetailWisata;
 import itk.myoganugraha.soalgits.R;
-import itk.myoganugraha.soalgits.RecyclerItemClickListener;
 
 /**
  * Created by M. Yoga Nugraha on 1/10/2018.
@@ -66,18 +60,14 @@ public class RecyclerViewDetailAdapter extends RecyclerView.Adapter<RecyclerView
 
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        private ImageView headerDetail1;
         private TextView kategori, locDetail;
         private JustifiedTextView descDetail;
-        private CollapsingToolbarLayout collapsingToolbarLayout;
 
         public ViewHolder(View view){
             super(view);
 
-            headerDetail1 = (ImageView) view.findViewById(R.id.headerDetail);
             kategori = (TextView) view.findViewById(R.id.kategoriDetail);
             descDetail = (JustifiedTextView) view.findViewById(R.id.descDetail);
-            collapsingToolbarLayout = (CollapsingToolbarLayout) view.findViewById(R.id.collapsing_toolbar);
             locDetail = (TextView) view.findViewById(R.id.locDetail);
 
         }
